@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="space" cx="50%" cy="42%" r="72%">
+      <stop offset="0" stop-color="#15213a"/>
+      <stop offset=".55" stop-color="#080d19"/>
+      <stop offset="1" stop-color="#010306"/>
+    </radialGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#75ffe9"/>
+      <stop offset="1" stop-color="#00cda8"/>
+    </linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#7671ff"/>
+      <stop offset="1" stop-color="#9a50e8"/>
+    </linearGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#space)"/>
+  <circle cx="200" cy="510" r="170" fill="#00d7b2" opacity=".08" filter="url(#soft)"/>
+  <circle cx="1000" cy="120" r="190" fill="#8b5cf6" opacity=".11" filter="url(#soft)"/>
+  <g fill="#9ed4ff" opacity=".75">
+    <circle cx="80" cy="80" r="2"/><circle cx="180" cy="135" r="1.5"/><circle cx="330" cy="72" r="1"/>
+    <circle cx="515" cy="104" r="1.5"/><circle cx="705" cy="65" r="1"/><circle cx="900" cy="95" r="2"/>
+    <circle cx="1105" cy="60" r="1.5"/><circle cx="1050" cy="255" r="1"/><circle cx="100" cy="320" r="1.5"/>
+    <circle cx="1100" cy="455" r="2"/><circle cx="410" cy="540" r="1"/><circle cx="790" cy="525" r="1.5"/>
+  </g>
+  <g transform="translate(600 168)" filter="url(#glow)">
+    <path d="M-82 9C-72-42-44-68 0-68S72-42 82 9" fill="#172e49" stroke="#65ffe7" stroke-width="7"/>
+    <path d="M-160 27l46-38h228l46 38-43 64h-234l-43-64z" fill="url(#cyan)"/>
+    <path d="M-126 28h252l-28 39H-98l-28-39z" fill="#07131f" opacity=".94"/>
+    <circle cx="-75" cy="73" r="9" fill="#ff66c8"/><circle cy="82" r="9" fill="#8175ff"/><circle cx="75" cy="73" r="9" fill="#ff66c8"/>
+  </g>
+  <text x="600" y="355" text-anchor="middle" fill="#69ffe8" font-family="Arial, Helvetica, sans-serif" font-size="88" font-weight="900" letter-spacing="8">UFO INVADERS</text>
+  <text x="600" y="415" text-anchor="middle" fill="#49cfff" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" letter-spacing="11">NEON DEFENSE</text>
+  <g transform="translate(600 506)">
+    <path d="M0-36l50 26-18 17 5 28-37-13-37 13 5-28-18-17L0-36z" fill="url(#violet)" stroke="#aefcf0" stroke-width="3"/>
+    <path d="M-16 24L0 59l16-35" fill="#58ffe0" opacity=".78" filter="url(#glow)"/>
+  </g>
+  <text x="48" y="585" fill="#b6c2d6" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">SOLDATIX</text>
+  <text x="1152" y="585" text-anchor="end" fill="#b6c2d6" font-family="Arial, Helvetica, sans-serif" font-size="22">APPS &amp; GAMES</text>
+</svg>
