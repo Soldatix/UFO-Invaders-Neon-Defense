@@ -65,6 +65,7 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
+      height: 100dvh;
       width: 100vw;
       overflow: hidden;
     }
@@ -394,6 +395,9 @@
     #touch-controls {
       width: 100%;
       max-width: 800px;
+      flex: 0 0 auto;
+      position: relative;
+      z-index: 35;
       background: rgba(3, 7, 18, 0.9);
       border-top: 1px solid #1f2937;
       padding: 10px 16px;
@@ -518,7 +522,13 @@
     .modal-box { border:1px solid var(--line); border-radius:22px; background:linear-gradient(145deg,#111a39,#060918); box-shadow:0 35px 100px #000d,0 0 55px #3cf5ff0d; }
     .modal-header,.modal-footer { border-color:var(--line); background:#070d22aa; }
     .crypto-row { border-color:var(--line); background:#05091a; }.btn-copy { border-color:var(--line); background:#111b35; }
-    @media(max-width:640px){#menu-card{padding:24px 18px;gap:17px;border-radius:22px}.title-banner h1{font-size:36px;letter-spacing:2px}.title-banner .subtitle{letter-spacing:2px}.lang-btn{min-width:34px;padding:6px 8px}.btn-info{font-size:11px;padding:7px 8px}.btn-main{min-height:54px}.sub-actions{grid-template-columns:1fr 1fr}#hud{width:100%;margin:0;border-radius:0;padding:7px 9px}.hud-stat-group{gap:9px}.hud-val{font-size:15px}.btn-group{gap:4px}.btn-group .icon-btn{padding:6px}.hud-stat-item[style]{margin-right:2px!important}#canvas-wrapper{padding:4px}.modal-box{border-radius:18px}}
+    @media(max-width:640px){#menu-card{padding:24px 18px;gap:17px;border-radius:22px}.title-banner h1{font-size:36px;letter-spacing:2px}.title-banner .subtitle{letter-spacing:2px}.lang-btn{min-width:34px;padding:6px 8px}.btn-info{font-size:11px;padding:7px 8px}.btn-main{min-height:54px}.sub-actions{grid-template-columns:1fr 1fr}#hud{width:100%;margin:0;border-radius:0;padding:7px 9px}.hud-stat-group{gap:9px}.hud-val{font-size:15px}.btn-group{gap:4px}.btn-group .icon-btn{padding:6px}.hud-stat-item[style]{margin-right:2px!important}#canvas-wrapper{padding:4px;min-height:0}.modal-box{border-radius:18px}
+      /* Controls stay in the document flow, directly below the HUD. This is
+         reliable with Android browser chrome, gesture bars and tablet views. */
+      #touch-controls { width:calc(100% - 12px); max-width:none; margin:4px 6px 0; padding:6px 10px; border-radius:14px; }
+      .touch-btn { width:52px; height:52px; }
+      .touch-fire { width:72px; height:52px; }
+    }
   </style>
 </head>
 <body>
@@ -558,19 +568,19 @@
       <div id="buffs-bar" class="hidden"></div>
     </div>
 
-    <!-- Canvas -->
-    <div id="canvas-wrapper">
-      <canvas id="game-canvas" width="800" height="700"></canvas>
-    </div>
-
     <!-- Touch Controls -->
     <div id="touch-controls" class="hidden">
       <div class="d-pad">
-        <button id="t-btn-left" class="touch-btn">◀</button>
-        <button id="t-btn-right" class="touch-btn">▶</button>
+        <button id="t-btn-left" class="touch-btn" aria-label="Move left">◀</button>
+        <button id="t-btn-right" class="touch-btn" aria-label="Move right">▶</button>
       </div>
-      <button id="t-btn-auto" class="icon-btn" style="font-size:11px;">⚡ AUTO</button>
-      <button id="t-btn-fire" class="touch-fire">FIRE</button>
+      <button id="t-btn-auto" class="icon-btn" style="font-size:11px;" aria-label="Toggle auto-fire">⚡ AUTO</button>
+      <button id="t-btn-fire" class="touch-fire" aria-label="Fire weapon">FIRE</button>
+    </div>
+
+    <!-- Canvas -->
+    <div id="canvas-wrapper">
+      <canvas id="game-canvas" width="800" height="700"></canvas>
     </div>
 
     <!-- Main Menu Overlay -->
@@ -905,7 +915,11 @@
     let language = localStorage.getItem('si_lang') || 'en';
     let soundEnabled = localStorage.getItem('si_sound') !== 'false';
     let crtEnabled = localStorage.getItem('si_crt') === 'true';
-    let touchEnabled = localStorage.getItem('si_touch') === 'true';
+    // Touch controls are on by default on phones/tablets. A saved setting still
+    // takes precedence, so desktop players can keep the interface unchanged.
+    const savedTouchPreference = localStorage.getItem('si_touch');
+    const touchCapableDevice = navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches;
+    let touchEnabled = savedTouchPreference === null ? touchCapableDevice : savedTouchPreference === 'true';
     let autoFire = localStorage.getItem('si_auto') === 'true';
     let highScore = parseInt(localStorage.getItem('si_high') || '0', 10);
 
@@ -938,6 +952,20 @@
     let lastTime = performance.now();
     let lastShotTime = 0;
     sound.muted = !soundEnabled;
+
+    // Keep touch controls in normal document flow below the HUD. Fixed
+    // positioning is intentionally avoided because mobile browser chrome and
+    // Android navigation bars can make the fixed viewport taller than the
+    // actually visible area.
+    function positionMobileControls() {
+      if (!touchCapableDevice) return;
+      const controls = document.getElementById('touch-controls');
+      controls.style.position = 'relative';
+      controls.style.zIndex = '35';
+      controls.style.left = '';
+      controls.style.bottom = '';
+      controls.style.transform = '';
+    }
 
     // Stars
     for (let i = 0; i < 90; i++) {
@@ -1002,6 +1030,7 @@
       document.getElementById('screen-menu').classList.add('hidden');
       document.getElementById('screen-gameover').classList.add('hidden');
       document.getElementById('hud').classList.remove('hidden');
+      positionMobileControls();
       if (touchEnabled) document.getElementById('touch-controls').classList.remove('hidden');
       updateHUD();
       lastTime = performance.now();
@@ -1768,6 +1797,7 @@
     document.getElementById('chk-touch').addEventListener('change', (e) => {
       touchEnabled = e.target.checked;
       localStorage.setItem('si_touch', touchEnabled);
+      positionMobileControls();
       document.getElementById('touch-controls').classList.toggle('hidden', !touchEnabled || !isRunning);
     });
 
@@ -1791,14 +1821,20 @@
     });
     window.addEventListener('keyup', (e) => { keys[e.code] = false; });
 
-    // Touch events
+    // Pointer events work reliably for touch screens and also release controls
+    // if a finger leaves the button before it is lifted.
     const tL = document.getElementById('t-btn-left'), tR = document.getElementById('t-btn-right'), tF = document.getElementById('t-btn-fire');
-    tL.addEventListener('touchstart', (e) => { e.preventDefault(); touchL = true; });
-    tL.addEventListener('touchend', (e) => { e.preventDefault(); touchL = false; });
-    tR.addEventListener('touchstart', (e) => { e.preventDefault(); touchR = true; });
-    tR.addEventListener('touchend', (e) => { e.preventDefault(); touchR = false; });
-    tF.addEventListener('touchstart', (e) => { e.preventDefault(); touchF = true; });
-    tF.addEventListener('touchend', (e) => { e.preventDefault(); touchF = false; });
+    function bindHoldControl(element, setState) {
+      element.addEventListener('pointerdown', (e) => { e.preventDefault(); element.setPointerCapture?.(e.pointerId); setState(true); });
+      ['pointerup', 'pointercancel', 'pointerleave', 'lostpointercapture'].forEach((eventName) => {
+        element.addEventListener(eventName, (e) => { e.preventDefault(); setState(false); });
+      });
+    }
+    bindHoldControl(tL, (active) => { touchL = active; });
+    bindHoldControl(tR, (active) => { touchR = active; });
+    bindHoldControl(tF, (active) => { touchF = active; });
+    window.addEventListener('blur', () => { touchL = false; touchR = false; touchF = false; });
+    document.addEventListener('fullscreenchange', positionMobileControls);
     document.getElementById('t-btn-auto').addEventListener('click', () => {
       autoFire = !autoFire;
       document.getElementById('chk-autofire').checked = autoFire;
