@@ -66,6 +66,7 @@
       justify-content: center;
       height: 100vh;
       height: 100dvh;
+      height: var(--app-height, 100dvh);
       width: 100vw;
       overflow: hidden;
     }
@@ -716,6 +717,23 @@
 
   <!-- COMPLETE EMBEDDED JAVASCRIPT GAME ENGINE -->
   <script>
+    // Android 9 and older WebViews often calculate 100vh behind the browser
+    // and system navigation bars. Measure the actually visible viewport and
+    // expose it to CSS so the bottom controls remain inside the screen.
+    function syncVisibleViewportHeight() {
+      const visibleHeight = window.visualViewport
+        ? window.visualViewport.height
+        : window.innerHeight;
+      document.documentElement.style.setProperty('--app-height', `${Math.round(visibleHeight)}px`);
+    }
+    syncVisibleViewportHeight();
+    window.addEventListener('resize', syncVisibleViewportHeight, { passive: true });
+    window.addEventListener('orientationchange', () => setTimeout(syncVisibleViewportHeight, 250), { passive: true });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', syncVisibleViewportHeight, { passive: true });
+      window.visualViewport.addEventListener('scroll', syncVisibleViewportHeight, { passive: true });
+    }
+
     // --- Translations & I18n ---
     const TRANSLATIONS = {
       en: {
