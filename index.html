@@ -186,6 +186,7 @@
     #canvas-wrapper {
       position: relative;
       flex: 1;
+      min-height: 0;
       width: 100%;
       max-width: 800px;
       display: flex;
@@ -194,9 +195,10 @@
       padding: 6px;
     }
     #game-canvas {
-      width: 100%;
+      width: auto;
       height: auto;
-      max-height: 80vh;
+      max-width: 100%;
+      max-height: 100%;
       aspect-ratio: 800 / 700;
       background: #000;
       border: 1px solid #1f2937;
@@ -523,9 +525,9 @@
     .modal-header,.modal-footer { border-color:var(--line); background:#070d22aa; }
     .crypto-row { border-color:var(--line); background:#05091a; }.btn-copy { border-color:var(--line); background:#111b35; }
     @media(max-width:640px){#menu-card{padding:24px 18px;gap:17px;border-radius:22px}.title-banner h1{font-size:36px;letter-spacing:2px}.title-banner .subtitle{letter-spacing:2px}.lang-btn{min-width:34px;padding:6px 8px}.btn-info{font-size:11px;padding:7px 8px}.btn-main{min-height:54px}.sub-actions{grid-template-columns:1fr 1fr}#hud{width:100%;margin:0;border-radius:0;padding:7px 9px}.hud-stat-group{gap:9px}.hud-val{font-size:15px}.btn-group{gap:4px}.btn-group .icon-btn{padding:6px}.hud-stat-item[style]{margin-right:2px!important}#canvas-wrapper{padding:4px;min-height:0}.modal-box{border-radius:18px}
-      /* Controls stay in the document flow, directly below the HUD. This is
-         reliable with Android browser chrome, gesture bars and tablet views. */
-      #touch-controls { width:calc(100% - 12px); max-width:none; margin:4px 6px 0; padding:6px 10px; border-radius:14px; }
+      /* Controls stay below the canvas in normal flow. The bottom margin keeps
+         them clear of gesture indicators on devices that expose a safe area. */
+      #touch-controls { width:calc(100% - 12px); max-width:none; margin:0 6px max(8px, env(safe-area-inset-bottom)); padding:6px 10px; border-radius:14px; }
       .touch-btn { width:52px; height:52px; }
       .touch-fire { width:72px; height:52px; }
     }
@@ -568,7 +570,13 @@
       <div id="buffs-bar" class="hidden"></div>
     </div>
 
-    <!-- Touch Controls -->
+    <!-- Canvas -->
+    <div id="canvas-wrapper">
+      <canvas id="game-canvas" width="800" height="700"></canvas>
+    </div>
+
+    <!-- Touch Controls: kept in normal flow below the game canvas so hands do
+         not cover the play area and Android navigation cannot clip them. -->
     <div id="touch-controls" class="hidden">
       <div class="d-pad">
         <button id="t-btn-left" class="touch-btn" aria-label="Move left">◀</button>
@@ -576,11 +584,6 @@
       </div>
       <button id="t-btn-auto" class="icon-btn" style="font-size:11px;" aria-label="Toggle auto-fire">⚡ AUTO</button>
       <button id="t-btn-fire" class="touch-fire" aria-label="Fire weapon">FIRE</button>
-    </div>
-
-    <!-- Canvas -->
-    <div id="canvas-wrapper">
-      <canvas id="game-canvas" width="800" height="700"></canvas>
     </div>
 
     <!-- Main Menu Overlay -->
@@ -953,7 +956,7 @@
     let lastShotTime = 0;
     sound.muted = !soundEnabled;
 
-    // Keep touch controls in normal document flow below the HUD. Fixed
+    // Keep touch controls in normal document flow below the game canvas. Fixed
     // positioning is intentionally avoided because mobile browser chrome and
     // Android navigation bars can make the fixed viewport taller than the
     // actually visible area.
