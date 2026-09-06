@@ -13,6 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Relax Info marker matcher
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('.github/scripts/upgrade-ufo-info.py')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace("r'    <!-- Info / Donations Modal -->.*?    <!-- Read Me Modal -->'", "r'<!-- Info / Donations Modal -->.*?<!-- Read Me Modal -->'")
+          p.write_text(s, encoding='utf-8')
+          PY
       - name: Patch Info
         run: python .github/scripts/upgrade-ufo-info.py
       - name: Verify content
