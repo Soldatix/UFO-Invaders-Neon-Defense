@@ -17,11 +17,10 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
           p = Path('.github/scripts/upgrade-ufo-info.py')
           s = p.read_text(encoding='utf-8')
           old = "pattern = re.compile(r'    <!-- Info / Donations Modal -->.*?    <!-- Read Me Modal -->', re.S)\ns, n = pattern.subn(modal, s, count=1)\nif n != 1:\n    raise SystemExit(f'Info modal replacement count: {n}')"
-          new = "start_marker = '<!-- Info / Donations Modal -->'\nend_marker = '<!-- Read Me Modal -->'\nstart = s.find(start_marker)\nend = s.find(end_marker, start + len(start_marker))\nif start < 0 or end < 0:\n    raise SystemExit(f'Info markers not found: start={start}, end={end}')\ns = s[:start] + modal + s[end + len(end_marker):]"
+          new = "start_marker = '<!-- Info / Donations Modal -->'\nend_marker = '<div id=\\\"modal-readme\\\"'\nstart = s.find(start_marker)\nend = s.find(end_marker, start + len(start_marker))\nif start < 0 or end < 0:\n    raise SystemExit(f'Info markers not found: start={start}, end={end}')\ns = s[:start] + modal + '\\n    ' + s[end:]"
           if old not in s:
               raise SystemExit('Expected matcher block not found in patch script')
           p.write_text(s.replace(old, new, 1), encoding='utf-8')
