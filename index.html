@@ -532,6 +532,33 @@
       .touch-btn { width:52px; height:52px; }
       .touch-fire { width:72px; height:52px; }
     }
+  
+
+    /* Apps & Games standard Info / Donations */
+    #modal-info .modal-box { max-width: 760px !important; }
+    .ufo-info-charity { padding:14px 16px; background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.24); border-radius:13px; }
+    .ufo-info-kicker { color:#34d399; font-size:11px; font-weight:900; letter-spacing:1.2px; text-transform:uppercase; margin-bottom:8px; }
+    .ufo-info-charity p + p { margin-top:8px; }
+    .ufo-info-section-title { color:#9ca3af; font-size:11px; font-weight:900; letter-spacing:1.1px; text-transform:uppercase; }
+    .ufo-payment-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .ufo-payment-card { min-width:0; padding:15px; border-radius:14px; border:1px solid #263553; background:linear-gradient(150deg,#0d1730,#070c1c); display:flex; flex-direction:column; gap:10px; }
+    .ufo-payment-brand { display:flex; align-items:center; gap:9px; }
+    .ufo-payment-symbol { width:38px; height:38px; display:grid; place-items:center; border-radius:11px; border:1px solid rgba(60,245,255,.32); background:rgba(60,245,255,.09); color:#3cf5ff; font-weight:900; font-size:16px; }
+    .ufo-payment-brand strong { color:#f8fafc; font-size:15px; }
+    .ufo-payment-desc { color:#cbd5e1; font-size:12px; line-height:1.55; flex:1; }
+    .ufo-payment-badges { display:flex; flex-wrap:wrap; gap:6px; }
+    .ufo-payment-badge { padding:4px 8px; border:1px solid #2c3b59; border-radius:999px; background:#101a32; color:#cbd5e1; font-size:10px; font-weight:800; }
+    .ufo-payment-action { min-height:43px; display:flex; align-items:center; justify-content:center; text-decoration:none; border-radius:11px; font-weight:900; color:#031018; text-align:center; padding:9px 12px; background:linear-gradient(90deg,#4dd7e7,#51a8ff); }
+    .ufo-payment-card.stripe .ufo-payment-action { background:linear-gradient(90deg,#ffe45c,#ffb84d); }
+    .ufo-payment-note { color:#94a3b8; font-size:11px; }
+    .ufo-crypto-list { display:flex; flex-direction:column; gap:8px; }
+    .ufo-crypto-row { display:grid; grid-template-columns:72px minmax(0,1fr) auto; align-items:center; gap:10px; padding:11px 12px; border-radius:12px; border:1px solid #23324e; background:#050a18; }
+    .ufo-crypto-code { color:#3cf5ff; font-weight:900; font-family:monospace; }
+    .ufo-crypto-address { min-width:0; color:#dbeafe; font-size:11px; line-height:1.45; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; overflow-wrap:anywhere; user-select:text; -webkit-user-select:text; }
+    .ufo-copy-btn { min-width:76px; padding:7px 9px; border-radius:9px; border:1px solid #334565; background:#111b35; color:#dbeafe; font-size:11px; font-weight:800; cursor:pointer; }
+    .ufo-copy-btn.copied { border-color:rgba(52,211,153,.55); background:rgba(16,185,129,.14); color:#6ee7b7; }
+    @media (max-width:640px) { .ufo-payment-grid{grid-template-columns:1fr}.ufo-crypto-row{grid-template-columns:58px minmax(0,1fr)}.ufo-copy-btn{grid-column:2;justify-self:end}#modal-info .modal-body{padding:15px} }
+
   </style>
 </head>
 <body>
@@ -673,44 +700,48 @@
       </div>
     </div>
 
-    <!-- Info / Donations Modal -->
+        <!-- Info / Donations Modal -->
     <div id="modal-info" class="screen-overlay hidden">
-      <div class="modal-box" style="max-width: 620px;">
+      <div id="ufo-standard-info" class="modal-box">
         <div class="modal-header">
-          <span class="modal-title">Information / Donations</span>
+          <span class="modal-title" id="info-title">Information / Donations</span>
           <button id="info-close" class="icon-btn">✕</button>
         </div>
         <div class="modal-body">
-          <div style="padding: 12px; background: rgba(244, 114, 182, 0.1); border: 1px solid rgba(244, 114, 182, 0.3); border-radius: 10px; font-size: 13px;">
-            <p><strong>The application is free to use, but donations are welcome.</strong></p>
-            <p style="margin-top: 6px; color: #e5e7eb;">A part of the received donations will be forwarded to various charitable organizations, the largest part will be donated to institutions caring for children without adequate parental care.</p>
+          <div class="ufo-info-charity">
+            <div class="ufo-info-kicker" id="info-charity-title">Charity purpose</div>
+            <p id="info-free"><strong>The game is free to use, but voluntary donations are welcome.</strong></p>
+            <p id="info-charity-text">A part of the received donations will be forwarded to various charitable organizations. The largest part will be donated to institutions caring for children without adequate parental care.</p>
           </div>
-
-          <div>
-            <div style="font-weight: bold; color: #38bdf8; margin-bottom: 8px; font-size: 12px;">DIRECT DONATION LINKS:</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-              <a href="https://www.paypal.com/ncp/payment/RU2CWCNVQ7XD6" target="_blank" rel="noopener noreferrer" class="btn-sub" style="color: #60a5fa;">PayPal Account ↗</a>
-              <a href="https://buy.stripe.com/7sYeVd7Blfe89cm0k02kw00" target="_blank" rel="noopener noreferrer" class="btn-sub" style="color: #a855f7;">Card Payment (Stripe) ↗</a>
+          <div class="ufo-info-section-title" id="info-direct-title">Direct online payments</div>
+          <div class="ufo-payment-grid">
+            <div class="ufo-payment-card">
+              <div class="ufo-payment-brand"><span class="ufo-payment-symbol">P</span><strong>PayPal</strong></div>
+              <div class="ufo-payment-desc" id="info-paypal-desc">Pay securely with PayPal or other payment options offered by PayPal Checkout.</div>
+              <div class="ufo-payment-badges"><span class="ufo-payment-badge">PayPal</span><span class="ufo-payment-badge info-cards">Debit / Credit Card</span><span class="ufo-payment-badge">Apple Pay</span></div>
+              <a class="ufo-payment-action" id="info-paypal-button" href="https://www.paypal.com/ncp/payment/RU2CWCNVQ7XD6" target="_blank" rel="noopener noreferrer">Donate with PayPal ↗</a>
+            </div>
+            <div class="ufo-payment-card stripe">
+              <div class="ufo-payment-brand"><span class="ufo-payment-symbol">S</span><strong>Stripe</strong></div>
+              <div class="ufo-payment-desc" id="info-stripe-desc">Pay securely by card or with payment methods available through Stripe Checkout.</div>
+              <div class="ufo-payment-badges"><span class="ufo-payment-badge info-cards">Debit / Credit Card</span><span class="ufo-payment-badge">Link</span><span class="ufo-payment-badge" id="info-wallets-badge">Digital wallets</span></div>
+              <a class="ufo-payment-action" id="info-stripe-button" href="https://buy.stripe.com/7sYeVd7Blfe89cm0k02kw00" target="_blank" rel="noopener noreferrer">Donate with Stripe ↗</a>
             </div>
           </div>
-
-          <div>
-            <div style="font-weight: bold; color: #34d399; margin-bottom: 8px; font-size: 12px;">CRYPTO WALLETS:</div>
-            <div style="display: flex; flex-direction: column; gap: 6px;">
-              <div class="crypto-row"><span class="crypto-tag">BTC</span><span class="crypto-addr" id="w-btc">bc1qwlrxrh64peukga0fp59m9yg7gpf0yj8q7fxnsc</span><button class="btn-copy" onclick="copyText('w-btc')">Copy</button></div>
-              <div class="crypto-row"><span class="crypto-tag">ETH</span><span class="crypto-addr" id="w-eth">0xA99A52085c6725854daa46bb302041569c8bA4E3</span><button class="btn-copy" onclick="copyText('w-eth')">Copy</button></div>
-              <div class="crypto-row"><span class="crypto-tag">XRP</span><span class="crypto-addr" id="w-xrp">rP43SsrkhPkxTsFohMAm32sAQg7vqwmDpr</span><button class="btn-copy" onclick="copyText('w-xrp')">Copy</button></div>
-              <div class="crypto-row"><span class="crypto-tag">SOL</span><span class="crypto-addr" id="w-sol">8xkdVTEaDGuWu4aE3HpEx8r9Aux98JZbdsMiDQvJWBWR</span><button class="btn-copy" onclick="copyText('w-sol')">Copy</button></div>
-              <div class="crypto-row"><span class="crypto-tag">DOGE</span><span class="crypto-addr" id="w-doge">DGAT32ku8WmFaTDxCgVuRuVpUFmfdmD5Jb</span><button class="btn-copy" onclick="copyText('w-doge')">Copy</button></div>
-              <div class="crypto-row"><span class="crypto-tag">XLM</span><span class="crypto-addr" id="w-xlm">GCYH4OD4I2GNRKFFOYROE3N3S2HCT5RXIML3TZV5DP3TLTLXPXQXIJZ3</span><button class="btn-copy" onclick="copyText('w-xlm')">Copy</button></div>
-              <div class="crypto-row"><span class="crypto-tag">LTC</span><span class="crypto-addr" id="w-ltc">LWtaFniqdYpv2xJtqo9WqDwCsQ2cW6PYWi</span><button class="btn-copy" onclick="copyText('w-ltc')">Copy</button></div>
-              <div class="crypto-row"><span class="crypto-tag">RVN</span><span class="crypto-addr" id="w-rvn">RAtXzKZyB3awfq2u2cK8YppC9kJamU5tPQ</span><button class="btn-copy" onclick="copyText('w-rvn')">Copy</button></div>
-            </div>
+          <div class="ufo-payment-note" id="info-payment-note">Available payment methods can vary by country, device and payment provider.</div>
+          <div class="ufo-info-section-title" id="info-crypto-title">Crypto Wallets</div>
+          <div class="ufo-crypto-list">
+            <div class="ufo-crypto-row"><div class="ufo-crypto-code">BTC</div><div class="ufo-crypto-address">bc1qwlrxrh64peukga0fp59m9yg7gpf0yj8q7fxnsc</div><button class="ufo-copy-btn" data-address="bc1qwlrxrh64peukga0fp59m9yg7gpf0yj8q7fxnsc" onclick="copyInfoWallet(this)">Copy</button></div>
+            <div class="ufo-crypto-row"><div class="ufo-crypto-code">ETH</div><div class="ufo-crypto-address">0xA99A52085c6725854daa46bb302041569c8bA4E3</div><button class="ufo-copy-btn" data-address="0xA99A52085c6725854daa46bb302041569c8bA4E3" onclick="copyInfoWallet(this)">Copy</button></div>
+            <div class="ufo-crypto-row"><div class="ufo-crypto-code">XRP</div><div class="ufo-crypto-address">rP43SsrkhPkxTsFohMAm32sAQg7vqwmDpr</div><button class="ufo-copy-btn" data-address="rP43SsrkhPkxTsFohMAm32sAQg7vqwmDpr" onclick="copyInfoWallet(this)">Copy</button></div>
+            <div class="ufo-crypto-row"><div class="ufo-crypto-code">SOL</div><div class="ufo-crypto-address">8xkdVTEaDGuWu4aE3HpEx8r9Aux98JZbdsMiDQvJWBWR</div><button class="ufo-copy-btn" data-address="8xkdVTEaDGuWu4aE3HpEx8r9Aux98JZbdsMiDQvJWBWR" onclick="copyInfoWallet(this)">Copy</button></div>
+            <div class="ufo-crypto-row"><div class="ufo-crypto-code">DOGE</div><div class="ufo-crypto-address">DGAT32ku8WmFaTDxCgVuRuVpUFmfdmD5Jb</div><button class="ufo-copy-btn" data-address="DGAT32ku8WmFaTDxCgVuRuVpUFmfdmD5Jb" onclick="copyInfoWallet(this)">Copy</button></div>
+            <div class="ufo-crypto-row"><div class="ufo-crypto-code">XLM</div><div class="ufo-crypto-address">GCYH4OD4I2GNRKFFOYROE3N3S2HCT5RXIML3TZV5DP3TLTLXPXQXIJZ3</div><button class="ufo-copy-btn" data-address="GCYH4OD4I2GNRKFFOYROE3N3S2HCT5RXIML3TZV5DP3TLTLXPXQXIJZ3" onclick="copyInfoWallet(this)">Copy</button></div>
+            <div class="ufo-crypto-row"><div class="ufo-crypto-code">LTC</div><div class="ufo-crypto-address">LWtaFniqdYpv2xJtqo9WqDwCsQ2cW6PYWi</div><button class="ufo-copy-btn" data-address="LWtaFniqdYpv2xJtqo9WqDwCsQ2cW6PYWi" onclick="copyInfoWallet(this)">Copy</button></div>
+            <div class="ufo-crypto-row"><div class="ufo-crypto-code">RVN</div><div class="ufo-crypto-address">RAtXzKZyB3awfq2u2cK8YppC9kJamU5tPQ</div><button class="ufo-copy-btn" data-address="RAtXzKZyB3awfq2u2cK8YppC9kJamU5tPQ" onclick="copyInfoWallet(this)">Copy</button></div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button id="info-footer-close" class="icon-btn">Close</button>
-        </div>
+        <div class="modal-footer"><button id="info-footer-close" class="icon-btn">Close</button></div>
       </div>
     </div>
   </div>
@@ -1696,6 +1727,7 @@
         b.classList.toggle('active', b.getAttribute('data-lang') === lang);
       });
       const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+      updateInfoLanguage(lang);
       document.getElementById('menu-title').innerText = t.title;
       document.getElementById('menu-subtitle').innerText = t.subtitle;
       document.getElementById('txt-start-game').innerText = t.start;
@@ -1739,6 +1771,44 @@
       const txt = document.getElementById(id).innerText;
       navigator.clipboard.writeText(txt).then(() => alert('Copied: ' + txt)).catch(() => {});
     }
+
+
+
+    const INFO_TRANSLATIONS = {
+      en:{menu:'ℹ Info / Donations',title:'Information / Donations',charity:'Charity purpose',free:'The game is free to use, but voluntary donations are welcome.',charityText:'A part of the received donations will be forwarded to various charitable organizations. The largest part will be donated to institutions caring for children without adequate parental care.',direct:'Direct online payments',paypalDesc:'Pay securely with PayPal or other payment options offered by PayPal Checkout.',stripeDesc:'Pay securely by card or with payment methods available through Stripe Checkout.',cards:'Debit / Credit Card',wallets:'Digital wallets',paypalButton:'Donate with PayPal ↗',stripeButton:'Donate with Stripe ↗',note:'Available payment methods can vary by country, device and payment provider.',crypto:'Crypto Wallets',copy:'Copy',copied:'Copied!',close:'Close'},
+      hr:{menu:'ℹ Info / Donacije',title:'Informacije / Donacije',charity:'Humanitarna svrha',free:'Igra je besplatna za korištenje, ali dobrovoljne donacije su dobrodošle.',charityText:'Dio primljenih donacija proslijedit će se različitim humanitarnim organizacijama. Najveći dio bit će doniran ustanovama koje skrbe o djeci bez odgovarajuće roditeljske skrbi.',direct:'Izravna online plaćanja',paypalDesc:'Platite sigurno putem PayPala ili drugim načinima plaćanja koje nudi PayPal Checkout.',stripeDesc:'Platite sigurno karticom ili načinima plaćanja dostupnima putem Stripe Checkouta.',cards:'Debitna / kreditna kartica',wallets:'Digitalni novčanici',paypalButton:'Doniraj putem PayPala ↗',stripeButton:'Doniraj putem Stripea ↗',note:'Dostupni načini plaćanja mogu se razlikovati ovisno o državi, uređaju i pružatelju plaćanja.',crypto:'Kripto novčanici',copy:'Kopiraj',copied:'Kopirano!',close:'Zatvori'},
+      de:{menu:'ℹ Info / Spenden',title:'Informationen / Spenden',charity:'Wohltätiger Zweck',free:'Das Spiel kann kostenlos genutzt werden, freiwillige Spenden sind jedoch willkommen.',charityText:'Ein Teil der erhaltenen Spenden wird an verschiedene gemeinnützige Organisationen weitergeleitet. Der größte Teil wird an Einrichtungen gespendet, die Kinder ohne angemessene elterliche Fürsorge betreuen.',direct:'Direkte Online-Zahlungen',paypalDesc:'Sicher mit PayPal oder weiteren von PayPal Checkout angebotenen Zahlungsmethoden bezahlen.',stripeDesc:'Sicher per Karte oder mit den über Stripe Checkout verfügbaren Zahlungsmethoden bezahlen.',cards:'Debit- / Kreditkarte',wallets:'Digitale Wallets',paypalButton:'Mit PayPal spenden ↗',stripeButton:'Mit Stripe spenden ↗',note:'Verfügbare Zahlungsmethoden können je nach Land, Gerät und Zahlungsanbieter variieren.',crypto:'Krypto-Wallets',copy:'Kopieren',copied:'Kopiert!',close:'Schließen'},
+      it:{menu:'ℹ Info / Donazioni',title:'Informazioni / Donazioni',charity:'Scopo benefico',free:'Il gioco è gratuito, ma le donazioni volontarie sono benvenute.',charityText:'Una parte delle donazioni ricevute sarà destinata a diverse organizzazioni benefiche. La parte maggiore sarà donata a istituti che si occupano di bambini privi di adeguate cure parentali.',direct:'Pagamenti online diretti',paypalDesc:'Paga in modo sicuro con PayPal o con gli altri metodi disponibili tramite PayPal Checkout.',stripeDesc:'Paga in modo sicuro con carta o con i metodi disponibili tramite Stripe Checkout.',cards:'Carta di debito / credito',wallets:'Portafogli digitali',paypalButton:'Dona con PayPal ↗',stripeButton:'Dona con Stripe ↗',note:'I metodi di pagamento disponibili possono variare in base al Paese, al dispositivo e al fornitore di pagamento.',crypto:'Portafogli crypto',copy:'Copia',copied:'Copiato!',close:'Chiudi'},
+      es:{menu:'ℹ Info / Donaciones',title:'Información / Donaciones',charity:'Finalidad benéfica',free:'El juego es gratuito, pero las donaciones voluntarias son bienvenidas.',charityText:'Una parte de las donaciones recibidas se destinará a diversas organizaciones benéficas. La mayor parte se donará a instituciones que atienden a niños sin una atención parental adecuada.',direct:'Pagos directos en línea',paypalDesc:'Paga de forma segura con PayPal u otros métodos disponibles mediante PayPal Checkout.',stripeDesc:'Paga de forma segura con tarjeta o con los métodos disponibles mediante Stripe Checkout.',cards:'Tarjeta de débito / crédito',wallets:'Carteras digitales',paypalButton:'Donar con PayPal ↗',stripeButton:'Donar con Stripe ↗',note:'Los métodos de pago disponibles pueden variar según el país, el dispositivo y el proveedor de pago.',crypto:'Carteras de criptomonedas',copy:'Copiar',copied:'¡Copiado!',close:'Cerrar'}
+    };
+
+    function updateInfoLanguage(lang) {
+      const i = INFO_TRANSLATIONS[lang] || INFO_TRANSLATIONS.en;
+      const set = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+      set('menu-info-btn', i.menu); set('info-title', i.title); set('info-charity-title', i.charity); set('info-free', i.free);
+      set('info-charity-text', i.charityText); set('info-direct-title', i.direct); set('info-paypal-desc', i.paypalDesc); set('info-stripe-desc', i.stripeDesc);
+      document.querySelectorAll('.info-cards').forEach(el => el.textContent = i.cards);
+      set('info-wallets-badge', i.wallets); set('info-paypal-button', i.paypalButton); set('info-stripe-button', i.stripeButton);
+      set('info-payment-note', i.note); set('info-crypto-title', i.crypto); set('info-footer-close', i.close);
+      document.querySelectorAll('.ufo-copy-btn').forEach(btn => { if (!btn.classList.contains('copied')) btn.textContent = i.copy; });
+    }
+
+    function copyInfoWallet(button) {
+      const i = INFO_TRANSLATIONS[language] || INFO_TRANSLATIONS.en;
+      const address = button.dataset.address || '';
+      const done = () => {
+        button.classList.add('copied'); button.textContent = i.copied;
+        setTimeout(() => { button.classList.remove('copied'); button.textContent = (INFO_TRANSLATIONS[language] || INFO_TRANSLATIONS.en).copy; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(address).then(done).catch(() => fallbackCopyInfoWallet(address, done));
+      else fallbackCopyInfoWallet(address, done);
+    }
+
+    function fallbackCopyInfoWallet(address, done) {
+      const ta = document.createElement('textarea'); ta.value = address; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (_) {} ta.remove();
+    }
+
 
     // --- Event Listeners ---
     document.querySelectorAll('.lang-btn').forEach(btn => {
