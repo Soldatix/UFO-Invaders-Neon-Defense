@@ -1,6 +1,6 @@
 # UFO Invaders: Neon Defense
 
-A free modern HTML5 arcade game by **Soldatix**, published on **Apps & Games**. The complete game engine, interface, audio, translations, and save system are contained in `index.html`; no framework or installation is required.
+A free modern HTML5 arcade game by **Soldatix**, published on **Apps & Games**. The game remains a framework-free static HTML5 project. Installation is optional through the Progressive Web App (PWA) flow; the normal browser version works without installation.
 
 Live URL: <https://ufo-invaders.appsandgames.org/>  
 Publisher: <https://appsandgames.org/>
@@ -93,8 +93,12 @@ Every push to `main` will then trigger a new deployment automatically.
 ## Files
 
 - `index.html` — standalone game and metadata
+- `ag-language-menu.js` — Apps & Games language menu with local SVG flags
+- `manifest.webmanifest` — PWA metadata
+- `sw.js` — offline application-shell service worker
+- `icons/icon-192.svg` and `icons/icon-512.svg` — installable PWA icons
 - `favicon.svg` — browser icon
-- `ufo-invaders-preview.png` — Open Graph/social preview
+- `ufo-invaders-preview.png` — 1200×630 Open Graph/social preview
 - `ufo-invaders-preview.svg` — editable source for the social preview
 - `robots.txt` — crawler instructions
 - `sitemap.xml` — game-page sitemap
