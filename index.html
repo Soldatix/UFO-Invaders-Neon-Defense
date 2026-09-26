@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UFO Invaders: Neon Defense – Free Online Arcade Game | Apps &amp; Games</title>
   <meta name="description" content="Play UFO Invaders: Neon Defense, a free modern arcade game by Soldatix. Defend Earth, collect power-ups, and play on desktop or mobile.">
+  <meta name="keywords" content="UFO Invaders, Neon Defense, arcade game, space shooter, HTML5 game, browser game, Apps & Games, Soldatix">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="author" content="Soldatix">
   <meta name="publisher" content="Apps &amp; Games">
   <meta name="application-name" content="UFO Invaders: Neon Defense">
@@ -12,13 +14,15 @@
   <meta name="theme-color" content="#030712">
   <link rel="canonical" href="https://ufo-invaders.appsandgames.org/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <script src="ag-language-menu.js" defer></script>
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="UFO Invaders: Neon Defense – Free Online Arcade Game">
   <meta property="og:description" content="Defend Earth in a modern neon arcade battle. Free to play on desktop and mobile.">
   <meta property="og:url" content="https://ufo-invaders.appsandgames.org/">
   <meta property="og:site_name" content="Apps &amp; Games">
-  <meta property="og:image" content="https://appsandgames.org/assets/social/ufo-invaders.jpg">
+  <meta property="og:image" content="https://ufo-invaders.appsandgames.org/ufo-invaders-preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="UFO Invaders: Neon Defense game preview">
@@ -26,7 +30,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="UFO Invaders: Neon Defense">
   <meta name="twitter:description" content="A free modern neon arcade game by Soldatix on Apps &amp; Games.">
-  <meta name="twitter:image" content="https://appsandgames.org/assets/social/ufo-invaders.jpg">
+  <meta name="twitter:image" content="https://ufo-invaders.appsandgames.org/ufo-invaders-preview.png">
 
   <script type="application/ld+json">
   {
@@ -36,10 +40,11 @@
     "alternateName": "UFO Invaders",
     "url": "https://ufo-invaders.appsandgames.org/",
     "description": "A free modern neon arcade defense game with waves, power-ups, saved progress, and desktop or touch controls.",
-    "image": "https://appsandgames.org/assets/social/ufo-invaders.jpg",
+    "image": "https://ufo-invaders.appsandgames.org/ufo-invaders-preview.png",
     "applicationCategory": "GameApplication",
     "gamePlatform": ["Web browser", "Desktop", "Mobile"],
     "operatingSystem": "Any",
+    "softwareVersion": "2026.09.24-v2",
     "browserRequirements": "Requires a modern browser with HTML5 Canvas and JavaScript",
     "isAccessibleForFree": true,
     "inLanguage": ["en", "hr", "de", "it", "es"],
@@ -164,6 +169,57 @@
       color: #f472b6;
       border-color: rgba(244, 114, 182, 0.4);
       background: rgba(244, 114, 182, 0.1);
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    select:focus-visible,
+    input:focus-visible {
+      outline: 3px solid var(--cyan, #3cf5ff);
+      outline-offset: 3px;
+    }
+    .menu-topbar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .menu-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+    .install-action {
+      width: 100%;
+      min-height: 42px;
+    }
+    .ufo-info-about {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 14px 16px;
+      border: 1px solid rgba(60,245,255,.22);
+      border-radius: 13px;
+      background: rgba(60,245,255,.055);
+    }
+    .ufo-info-about-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .ufo-info-about-head strong { color: #f8fafc; }
+    .ufo-info-build { color: #7dd3fc; font-size: 11px; font-weight: 800; }
+    .ufo-info-about p { color: #cbd5e1; font-size: 12px; line-height: 1.55; }
+    .ufo-info-portal { color: #75ffe9; font-size: 12px; font-weight: 800; }
+    @media (max-width: 520px) {
+      .menu-topbar { align-items: stretch; }
+      .menu-topbar-actions { width: 100%; justify-content: flex-end; }
+      .menu-topbar .ag-language-menu { flex: 1 1 142px; }
     }
 
     /* Active Buffs */
@@ -589,8 +645,8 @@
             <span class="hud-label" id="label-lives">LIVES</span>
             <span class="hud-val val-lives" id="val-lives">▲▲▲</span>
           </div>
-          <button id="btn-toggle-sound" class="icon-btn">🔊</button>
-          <button id="btn-toggle-fs" class="icon-btn">⛶</button>
+          <button id="btn-toggle-sound" class="icon-btn" aria-label="Toggle sound" title="Toggle sound">🔊</button>
+          <button id="btn-toggle-fs" class="icon-btn" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
           <button id="btn-pause" class="icon-btn" style="font-weight:bold;">⏸ PAUSE</button>
         </div>
       </div>
@@ -600,7 +656,7 @@
 
     <!-- Canvas -->
     <div id="canvas-wrapper">
-      <canvas id="game-canvas" width="800" height="700"></canvas>
+      <canvas id="game-canvas" width="800" height="700" role="img" aria-label="UFO Invaders game area"></canvas>
     </div>
 
     <!-- Touch Controls: kept in normal flow below the game canvas so hands do
@@ -617,16 +673,18 @@
     <!-- Main Menu Overlay -->
     <div id="screen-menu" class="screen-overlay">
       <div id="menu-card">
-        <!-- Top bar: Languages & Info -->
-        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
-          <div class="lang-bar">
-            <button class="lang-btn active" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="hr">HR</button>
-            <button class="lang-btn" data-lang="de">DE</button>
-            <button class="lang-btn" data-lang="it">IT</button>
-            <button class="lang-btn" data-lang="es">ES</button>
+        <!-- Top bar: standard Apps & Games language menu + Info -->
+        <div class="menu-topbar">
+          <select id="language-select" data-ag-language-menu aria-label="Language">
+            <option value="hr">Hrvatski</option>
+            <option value="en" selected>English</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="es">Español</option>
+          </select>
+          <div class="menu-topbar-actions">
+            <button id="menu-info-btn" class="icon-btn btn-info">ℹ Info / Donations</button>
           </div>
-          <button id="menu-info-btn" class="icon-btn btn-info">ℹ Info / Donations</button>
         </div>
 
         <div class="title-banner">
@@ -643,6 +701,7 @@
           <button id="menu-readme-btn" class="btn-sub">📖 <span id="txt-readme-btn">How to Play</span></button>
           <button id="menu-crt-btn" class="btn-sub">📺 <span id="txt-crt-btn">CRT Filter: OFF</span></button>
         </div>
+        <button id="btn-install-app" class="btn-sub install-action hidden">⬇ <span id="txt-install-app">Install Web App</span></button>
 
         <div style="display: flex; gap: 16px; font-size: 11px; color: #9ca3af;">
           <label style="cursor: pointer; display: flex; align-items: center; gap: 4px;">
@@ -656,11 +715,11 @@
     </div>
 
     <!-- Pause Modal -->
-    <div id="screen-pause" class="screen-overlay hidden">
+    <div id="screen-pause" class="screen-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="txt-pause-title">
       <div class="modal-box" style="max-width: 420px; text-align: center;">
         <div class="modal-header">
-          <span class="modal-title" style="color: #00ffcc; font-family: monospace; letter-spacing: 2px;">PAUSED</span>
-          <button id="btn-pause-close" class="icon-btn">✕</button>
+          <span class="modal-title" id="txt-pause-title" style="color: #00ffcc; font-family: monospace; letter-spacing: 2px;">PAUSED</span>
+          <button id="btn-pause-close" class="icon-btn" aria-label="Close">✕</button>
         </div>
         <div class="modal-body" style="gap: 12px;">
           <button id="btn-resume" class="btn-main btn-play">▶ <span id="txt-resume">Resume</span></button>
@@ -671,7 +730,7 @@
     </div>
 
     <!-- Game Over Modal -->
-    <div id="screen-gameover" class="screen-overlay hidden">
+    <div id="screen-gameover" class="screen-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="txt-gameover-title">
       <div class="modal-box" style="max-width: 420px; text-align: center;">
         <div class="modal-header" style="justify-content: center;">
           <span class="modal-title" style="color: #ef4444; font-family: monospace; font-size: 22px;" id="txt-gameover-title">GAME OVER</span>
@@ -685,11 +744,11 @@
     </div>
 
     <!-- Read Me Modal -->
-    <div id="modal-readme" class="screen-overlay hidden">
+    <div id="modal-readme" class="screen-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="rm-title">
       <div class="modal-box" style="max-width: 600px;">
         <div class="modal-header">
           <span class="modal-title" id="rm-title">Game Manual & Instructions</span>
-          <button id="rm-close" class="icon-btn">✕</button>
+          <button id="rm-close" class="icon-btn" aria-label="Close">✕</button>
         </div>
         <div class="modal-body" id="rm-content">
           <!-- Dynamically populated based on selected language -->
@@ -701,13 +760,23 @@
     </div>
 
         <!-- Info / Donations Modal -->
-    <div id="modal-info" class="screen-overlay hidden">
+    <div id="modal-info" class="screen-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="info-title">
       <div id="ufo-standard-info" class="modal-box">
         <div class="modal-header">
           <span class="modal-title" id="info-title">Information / Donations</span>
-          <button id="info-close" class="icon-btn">✕</button>
+          <button id="info-close" class="icon-btn" aria-label="Close">✕</button>
         </div>
         <div class="modal-body">
+          <div class="ufo-info-about">
+            <div class="ufo-info-section-title" id="info-about-title">About the game</div>
+            <div class="ufo-info-about-head">
+              <strong>UFO Invaders: Neon Defense</strong>
+              <span class="ufo-info-build" id="info-build">Build: 2026.09.24-v2</span>
+            </div>
+            <p id="info-about-description">A free neon arcade defense game with waves, power-ups, saved progress, desktop controls and touch controls.</p>
+            <p id="info-privacy">Progress, high score and preferences are stored locally in this browser. No Apps & Games account is required.</p>
+            <a class="ufo-info-portal" id="info-portal" href="https://appsandgames.org/" target="_blank" rel="noopener noreferrer">Visit Apps & Games ↗</a>
+          </div>
           <div class="ufo-info-charity">
             <div class="ufo-info-kicker" id="info-charity-title">Charity purpose</div>
             <p id="info-free"><strong>The game is free to use, but voluntary donations are welcome.</strong></p>
@@ -964,16 +1033,68 @@
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext('2d');
 
-    let language = localStorage.getItem('si_lang') || 'en';
-    let soundEnabled = localStorage.getItem('si_sound') !== 'false';
-    let crtEnabled = localStorage.getItem('si_crt') === 'true';
+    const SUPPORTED_LANGUAGES = ['en', 'hr', 'de', 'it', 'es'];
+
+    function storageGet(key, fallback = null) {
+      try {
+        const value = localStorage.getItem(key);
+        return value === null ? fallback : value;
+      } catch (_) {
+        return fallback;
+      }
+    }
+
+    function storageSet(key, value) {
+      try {
+        localStorage.setItem(key, String(value));
+        return true;
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function storageRemove(key) {
+      try {
+        localStorage.removeItem(key);
+        return true;
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function normalizeLanguage(value) {
+      return SUPPORTED_LANGUAGES.includes(value) ? value : 'en';
+    }
+
+    function readSavedGame() {
+      const raw = storageGet('si_saved_game');
+      if (!raw) return null;
+      try {
+        const saved = JSON.parse(raw);
+        const valid =
+          saved &&
+          Number.isInteger(saved.score) && saved.score >= 0 && saved.score <= 1000000000 &&
+          Number.isInteger(saved.wave) && saved.wave >= 1 && saved.wave <= 10000 &&
+          Number.isInteger(saved.lives) && saved.lives >= 0 && saved.lives <= 99 &&
+          Number.isFinite(saved.playerX) && saved.playerX >= 10 && saved.playerX <= 742;
+        if (!valid) throw new Error('Invalid saved game');
+        return { score: saved.score, wave: saved.wave, lives: saved.lives, playerX: saved.playerX };
+      } catch (_) {
+        storageRemove('si_saved_game');
+        return null;
+      }
+    }
+
+    let language = normalizeLanguage(storageGet('si_lang', 'en'));
+    let soundEnabled = storageGet('si_sound', 'true') !== 'false';
+    let crtEnabled = storageGet('si_crt', 'false') === 'true';
     // Touch controls are on by default on phones/tablets. A saved setting still
     // takes precedence, so desktop players can keep the interface unchanged.
-    const savedTouchPreference = localStorage.getItem('si_touch');
+    const savedTouchPreference = storageGet('si_touch');
     const touchCapableDevice = navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches;
     let touchEnabled = savedTouchPreference === null ? touchCapableDevice : savedTouchPreference === 'true';
-    let autoFire = localStorage.getItem('si_auto') === 'true';
-    let highScore = parseInt(localStorage.getItem('si_high') || '0', 10);
+    let autoFire = storageGet('si_auto', 'false') === 'true';
+    let highScore = Math.max(0, parseInt(storageGet('si_high', '0'), 10) || 0);
 
     let isRunning = false;
     let isPaused = false;
@@ -1241,7 +1362,7 @@
                 if (Math.random() < 0.08) {
                   powerUps.push({ x: inv.x + 16, y: inv.y + 12, type: ['spread', 'laser', 'shield', 'speed'][Math.floor(Math.random() * 4)], vy: 100 });
                 }
-                if (score > highScore) { highScore = score; localStorage.setItem('si_high', highScore); }
+                if (score > highScore) { highScore = score; storageSet('si_high', highScore); }
                 updateHUD();
                 if (!p.pierces) { projectiles.splice(i, 1); break; }
               }
@@ -1256,7 +1377,7 @@
                 if (lives <= 0) {
                   isRunning = false;
                   document.getElementById('screen-gameover').classList.remove('hidden');
-                  document.getElementById('gameover-score-text').innerText = 'SCORE: ' + score;
+                  document.getElementById('gameover-score-text').innerText = (TRANSLATIONS[language] || TRANSLATIONS.en).score + ': ' + score;
                 }
               }
             }
@@ -1719,14 +1840,25 @@
       if (isRunning) requestAnimationFrame(gameLoop);
     }
 
+    const UI_TRANSLATIONS = {
+      en:{manual:'Game Manual & Instructions',close:'Close',install:'Install Web App',moveLeft:'Move left',moveRight:'Move right',fire:'FIRE',fireLabel:'Fire weapon',autoShort:'AUTO',autoLabel:'Toggle auto-fire',sound:'Toggle sound',fullscreen:'Toggle fullscreen',saveError:'The game could not be saved in this browser.'},
+      hr:{manual:'Upute za igru',close:'Zatvori',install:'Instaliraj Web App',moveLeft:'Pomakni lijevo',moveRight:'Pomakni desno',fire:'PUCAJ',fireLabel:'Pucaj',autoShort:'AUTO',autoLabel:'Uključi ili isključi automatsku paljbu',sound:'Uključi ili isključi zvuk',fullscreen:'Uključi ili isključi puni zaslon',saveError:'Igru nije moguće spremiti u ovom pregledniku.'},
+      de:{manual:'Spielanleitung',close:'Schließen',install:'Web-App installieren',moveLeft:'Nach links bewegen',moveRight:'Nach rechts bewegen',fire:'FEUER',fireLabel:'Feuern',autoShort:'AUTO',autoLabel:'Automatikfeuer umschalten',sound:'Ton umschalten',fullscreen:'Vollbild umschalten',saveError:'Das Spiel konnte in diesem Browser nicht gespeichert werden.'},
+      it:{manual:'Manuale di gioco',close:'Chiudi',install:'Installa Web App',moveLeft:'Sposta a sinistra',moveRight:'Sposta a destra',fire:'FUOCO',fireLabel:'Spara',autoShort:'AUTO',autoLabel:'Attiva o disattiva il fuoco automatico',sound:'Attiva o disattiva audio',fullscreen:'Attiva o disattiva schermo intero',saveError:'Impossibile salvare la partita in questo browser.'},
+      es:{manual:'Manual del juego',close:'Cerrar',install:'Instalar Web App',moveLeft:'Mover a la izquierda',moveRight:'Mover a la derecha',fire:'FUEGO',fireLabel:'Disparar',autoShort:'AUTO',autoLabel:'Activar o desactivar disparo automático',sound:'Activar o desactivar sonido',fullscreen:'Activar o desactivar pantalla completa',saveError:'No se pudo guardar la partida en este navegador.'}
+    };
+
     // --- Language & UI Sync ---
     function setLanguage(lang) {
+      lang = normalizeLanguage(lang);
       language = lang;
-      localStorage.setItem('si_lang', lang);
-      document.querySelectorAll('.lang-btn').forEach(b => {
-        b.classList.toggle('active', b.getAttribute('data-lang') === lang);
-      });
+      storageSet('si_lang', lang);
+      document.documentElement.lang = lang;
+      const languageSelect = document.getElementById('language-select');
+      if (languageSelect) languageSelect.value = lang;
+
       const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+      const ui = UI_TRANSLATIONS[lang] || UI_TRANSLATIONS.en;
       updateInfoLanguage(lang);
       document.getElementById('menu-title').innerText = t.title;
       document.getElementById('menu-subtitle').innerText = t.subtitle;
@@ -1747,18 +1879,37 @@
       document.getElementById('label-wave').innerText = t.wave;
       document.getElementById('label-lives').innerText = t.lives;
       document.getElementById('rm-content').innerHTML = t.readme;
+      document.getElementById('rm-title').innerText = ui.manual;
+      document.getElementById('rm-footer-close').innerText = ui.close;
+      document.getElementById('txt-pause-title').innerText = t.pause.toUpperCase();
+      document.getElementById('txt-gameover-title').innerText = t.gameOver;
+      document.getElementById('gameover-score-text').innerText = t.score + ': ' + score;
       document.getElementById('btn-pause').innerText = '⏸ ' + t.pause;
+      document.getElementById('txt-install-app').innerText = ui.install;
+      document.getElementById('t-btn-fire').innerText = ui.fire;
+      document.getElementById('t-btn-auto').innerText = '⚡ ' + ui.autoShort;
+      document.getElementById('t-btn-left').setAttribute('aria-label', ui.moveLeft);
+      document.getElementById('t-btn-right').setAttribute('aria-label', ui.moveRight);
+      document.getElementById('t-btn-fire').setAttribute('aria-label', ui.fireLabel);
+      document.getElementById('t-btn-auto').setAttribute('aria-label', ui.autoLabel);
+      document.getElementById('btn-toggle-sound').setAttribute('aria-label', ui.sound);
+      document.getElementById('btn-toggle-sound').setAttribute('title', ui.sound);
+      document.getElementById('btn-toggle-fs').setAttribute('aria-label', ui.fullscreen);
+      document.getElementById('btn-toggle-fs').setAttribute('title', ui.fullscreen);
+      document.getElementById('btn-pause-close').setAttribute('aria-label', ui.close);
+      document.getElementById('rm-close').setAttribute('aria-label', ui.close);
+      document.getElementById('info-close').setAttribute('aria-label', ui.close);
     }
 
     function syncContinueButton() {
       const button = document.getElementById('btn-continue-game');
-      button.disabled = !localStorage.getItem('si_saved_game');
+      button.disabled = !readSavedGame();
     }
 
     function toggleSound() {
       sound.muted = !sound.muted;
       soundEnabled = !sound.muted;
-      localStorage.setItem('si_sound', soundEnabled);
+      storageSet('si_sound', soundEnabled);
       document.getElementById('btn-toggle-sound').innerText = sound.muted ? '🔇' : '🔊';
     }
 
@@ -1782,6 +1933,14 @@
       es:{menu:'ℹ Info / Donaciones',title:'Información / Donaciones',charity:'Finalidad benéfica',free:'El juego es gratuito, pero las donaciones voluntarias son bienvenidas.',charityText:'Una parte de las donaciones recibidas se destinará a diversas organizaciones benéficas. La mayor parte se donará a instituciones que atienden a niños sin una atención parental adecuada.',direct:'Pagos directos en línea',paypalDesc:'Paga de forma segura con PayPal u otros métodos disponibles mediante PayPal Checkout.',stripeDesc:'Paga de forma segura con tarjeta o con los métodos disponibles mediante Stripe Checkout.',cards:'Tarjeta de débito / crédito',wallets:'Carteras digitales',paypalButton:'Donar con PayPal ↗',stripeButton:'Donar con Stripe ↗',note:'Los métodos de pago disponibles pueden variar según el país, el dispositivo y el proveedor de pago.',crypto:'Carteras de criptomonedas',copy:'Copiar',copied:'¡Copiado!',close:'Cerrar'}
     };
 
+    const INFO_META_TRANSLATIONS = {
+      en:{about:'About the game',description:'A free neon arcade defense game with waves, power-ups, saved progress, desktop controls and touch controls.',build:'Build',privacy:'Progress, high score and preferences are stored locally in this browser. No Apps & Games account is required.',portal:'Visit Apps & Games ↗'},
+      hr:{about:'O igri',description:'Besplatna neon arkadna obrambena igra s valovima, posebnim moćima, spremljenim napretkom te kontrolama za računalo i dodir.',build:'Izdanje',privacy:'Napredak, rekord i postavke spremaju se lokalno u ovom pregledniku. Apps & Games račun nije potreban.',portal:'Posjeti Apps & Games ↗'},
+      de:{about:'Über das Spiel',description:'Ein kostenloses Neon-Arcade-Verteidigungsspiel mit Wellen, Power-ups, gespeichertem Fortschritt sowie Desktop- und Touch-Steuerung.',build:'Build',privacy:'Fortschritt, Highscore und Einstellungen werden lokal in diesem Browser gespeichert. Ein Apps-&-Games-Konto ist nicht erforderlich.',portal:'Apps & Games besuchen ↗'},
+      it:{about:'Informazioni sul gioco',description:'Un gioco arcade neon gratuito con ondate, potenziamenti, progressi salvati e comandi desktop e touch.',build:'Build',privacy:'Progressi, record e preferenze vengono salvati localmente in questo browser. Non è necessario un account Apps & Games.',portal:'Visita Apps & Games ↗'},
+      es:{about:'Acerca del juego',description:'Un juego arcade de defensa neón gratuito con oleadas, potenciadores, progreso guardado y controles de escritorio y táctiles.',build:'Versión',privacy:'El progreso, la puntuación máxima y las preferencias se guardan localmente en este navegador. No se requiere una cuenta de Apps & Games.',portal:'Visitar Apps & Games ↗'}
+    };
+
     function updateInfoLanguage(lang) {
       const i = INFO_TRANSLATIONS[lang] || INFO_TRANSLATIONS.en;
       const set = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
@@ -1790,6 +1949,9 @@
       document.querySelectorAll('.info-cards').forEach(el => el.textContent = i.cards);
       set('info-wallets-badge', i.wallets); set('info-paypal-button', i.paypalButton); set('info-stripe-button', i.stripeButton);
       set('info-payment-note', i.note); set('info-crypto-title', i.crypto); set('info-footer-close', i.close);
+      const meta = INFO_META_TRANSLATIONS[lang] || INFO_META_TRANSLATIONS.en;
+      set('info-about-title', meta.about); set('info-about-description', meta.description); set('info-build', meta.build + ': 2026.09.24-v2');
+      set('info-privacy', meta.privacy); set('info-portal', meta.portal);
       document.querySelectorAll('.ufo-copy-btn').forEach(btn => { if (!btn.classList.contains('copied')) btn.textContent = i.copy; });
     }
 
@@ -1811,9 +1973,7 @@
 
 
     // --- Event Listeners ---
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
-    });
+    document.getElementById('language-select').addEventListener('change', event => setLanguage(event.target.value));
 
     document.getElementById('btn-start-game').addEventListener('click', startNewGame);
     document.getElementById('btn-play-again').addEventListener('click', startNewGame);
@@ -1836,7 +1996,11 @@
     });
 
     document.getElementById('btn-save-exit').addEventListener('click', () => {
-      localStorage.setItem('si_saved_game', JSON.stringify({ score, wave, lives, playerX }));
+      const saved = storageSet('si_saved_game', JSON.stringify({ score, wave, lives, playerX }));
+      if (!saved) {
+        alert((UI_TRANSLATIONS[language] || UI_TRANSLATIONS.en).saveError);
+        return;
+      }
       isRunning = false;
       document.getElementById('screen-pause').classList.add('hidden');
       document.getElementById('hud').classList.add('hidden');
@@ -1845,7 +2009,7 @@
     });
 
     document.getElementById('btn-exit-nosave').addEventListener('click', () => {
-      localStorage.removeItem('si_saved_game');
+      storageRemove('si_saved_game');
       isRunning = false;
       document.getElementById('screen-pause').classList.add('hidden');
       document.getElementById('hud').classList.add('hidden');
@@ -1854,24 +2018,50 @@
     });
 
     document.getElementById('btn-continue-game').addEventListener('click', () => {
-      const raw = localStorage.getItem('si_saved_game');
-      if (raw) {
-        const s = JSON.parse(raw);
+      const saved = readSavedGame();
+      if (saved) {
         startNewGame();
-        score = s.score; wave = s.wave; lives = s.lives; playerX = s.playerX;
+        score = saved.score; wave = saved.wave; lives = saved.lives; playerX = saved.playerX;
         spawnWave();
         updateHUD();
       }
     });
 
-    // Modals
-    document.getElementById('menu-info-btn').addEventListener('click', () => document.getElementById('modal-info').classList.remove('hidden'));
-    document.getElementById('info-close').addEventListener('click', () => document.getElementById('modal-info').classList.add('hidden'));
-    document.getElementById('info-footer-close').addEventListener('click', () => document.getElementById('modal-info').classList.add('hidden'));
+    let lastUtilityModalOpener = null;
 
-    document.getElementById('menu-readme-btn').addEventListener('click', () => document.getElementById('modal-readme').classList.remove('hidden'));
-    document.getElementById('rm-close').addEventListener('click', () => document.getElementById('modal-readme').classList.add('hidden'));
-    document.getElementById('rm-footer-close').addEventListener('click', () => document.getElementById('modal-readme').classList.add('hidden'));
+    function openUtilityModal(modalId, opener) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+      lastUtilityModalOpener = opener || document.activeElement;
+      modal.classList.remove('hidden');
+      const first = modal.querySelector('button, a[href], input, select, [tabindex]:not([tabindex="-1"])');
+      first?.focus();
+    }
+
+    function closeUtilityModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (!modal || modal.classList.contains('hidden')) return false;
+      modal.classList.add('hidden');
+      const opener = lastUtilityModalOpener;
+      lastUtilityModalOpener = null;
+      opener?.focus?.();
+      return true;
+    }
+
+    function closeOpenUtilityModal() {
+      return closeUtilityModal('modal-info') || closeUtilityModal('modal-readme');
+    }
+
+    // Modals
+    const infoOpener = document.getElementById('menu-info-btn');
+    const readmeOpener = document.getElementById('menu-readme-btn');
+    infoOpener.addEventListener('click', () => openUtilityModal('modal-info', infoOpener));
+    document.getElementById('info-close').addEventListener('click', () => closeUtilityModal('modal-info'));
+    document.getElementById('info-footer-close').addEventListener('click', () => closeUtilityModal('modal-info'));
+
+    readmeOpener.addEventListener('click', () => openUtilityModal('modal-readme', readmeOpener));
+    document.getElementById('rm-close').addEventListener('click', () => closeUtilityModal('modal-readme'));
+    document.getElementById('rm-footer-close').addEventListener('click', () => closeUtilityModal('modal-readme'));
 
     // Sound & FS
     document.getElementById('btn-toggle-sound').addEventListener('click', toggleSound);
@@ -1881,26 +2071,30 @@
     document.getElementById('menu-crt-btn').addEventListener('click', () => {
       crtEnabled = !crtEnabled;
       document.getElementById('crt-layer').classList.toggle('hidden', !crtEnabled);
-      localStorage.setItem('si_crt', crtEnabled);
+      storageSet('si_crt', crtEnabled);
       setLanguage(language);
     });
 
     document.getElementById('chk-touch').addEventListener('change', (e) => {
       touchEnabled = e.target.checked;
-      localStorage.setItem('si_touch', touchEnabled);
+      storageSet('si_touch', touchEnabled);
       positionMobileControls();
       document.getElementById('touch-controls').classList.toggle('hidden', !touchEnabled || !isRunning);
     });
 
     document.getElementById('chk-autofire').addEventListener('change', (e) => {
       autoFire = e.target.checked;
-      localStorage.setItem('si_auto', autoFire);
+      storageSet('si_auto', autoFire);
     });
 
     // Keyboard
     window.addEventListener('keydown', (e) => {
       keys[e.code] = true;
       if (['Space', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(e.code) && isRunning) e.preventDefault();
+      if (e.code === 'Escape' && closeOpenUtilityModal()) {
+        e.preventDefault();
+        return;
+      }
       if (e.code === 'KeyP' || e.code === 'Escape') {
         if (isRunning) {
           isPaused = !isPaused;
@@ -1929,9 +2123,38 @@
     document.getElementById('t-btn-auto').addEventListener('click', () => {
       autoFire = !autoFire;
       document.getElementById('chk-autofire').checked = autoFire;
-      localStorage.setItem('si_auto', autoFire);
+      storageSet('si_auto', autoFire);
       document.getElementById('t-btn-auto').style.color = autoFire ? '#facc15' : '#9ca3af';
     });
+
+    // PWA install flow and offline shell registration.
+    const installButton = document.getElementById('btn-install-app');
+    let deferredInstallPrompt = null;
+
+    window.addEventListener('beforeinstallprompt', event => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      installButton.classList.remove('hidden');
+    });
+
+    installButton.addEventListener('click', async () => {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      try { await deferredInstallPrompt.userChoice; } catch (_) {}
+      deferredInstallPrompt = null;
+      installButton.classList.add('hidden');
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+      installButton.classList.add('hidden');
+    });
+
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      }, { once: true });
+    }
 
     // Restore all persisted menu options and saved-game availability
     document.getElementById('chk-touch').checked = touchEnabled;
