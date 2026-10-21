@@ -26,6 +26,7 @@ Otvorite `index.html` u modernom internetskom pregledniku ili prenesite sadržaj
 Ako koristiš naš izvorni kod za vlastitu verziju igre, bili bismo zahvalni da nas spomeneš u odjeljku O aplikaciji / Info:
 
 **Temeljeno na igri UFO Invaders: Neon Defense autora Apps & Games — [appsandgames.org](https://appsandgames.org/)**
+
 ## English
 
 ### Start and play
@@ -47,6 +48,7 @@ Open `index.html` in a modern web browser, or upload the repository contents to 
 If you use our source code to create your own version, we'd appreciate a mention in its About / Info section:
 
 **Based on UFO Invaders: Neon Defense by Apps & Games — [appsandgames.org](https://appsandgames.org/)**
+
 ## Deutsch
 
 ### Start und Spielanleitung
@@ -68,6 +70,7 @@ If you use our source code to create your own version, we'd appreciate a mention
 Wenn du unseren Quellcode für eine eigene Version verwendest, würden wir uns über einen Hinweis unter Über / Info freuen:
 
 **Basierend auf UFO Invaders: Neon Defense von Apps & Games — [appsandgames.org](https://appsandgames.org/)**
+
 ## Italiano
 
 ### Avvio e gioco
@@ -89,6 +92,7 @@ Apri `index.html` in un browser moderno oppure carica il contenuto del repositor
 Se utilizzi il nostro codice sorgente per creare una tua versione del gioco, apprezzeremmo una menzione nella sezione Informazioni / Info:
 
 **Basato su UFO Invaders: Neon Defense di Apps & Games — [appsandgames.org](https://appsandgames.org/)**
+
 ## Español
 
 ### Inicio y juego
@@ -110,6 +114,7 @@ Abre `index.html` en un navegador moderno o sube el contenido del repositorio a 
 Si utilizas nuestro código fuente para crear tu propia versión del juego, agradeceríamos una mención en la sección Acerca de / Información:
 
 **Basado en UFO Invaders: Neon Defense de Apps & Games — [appsandgames.org](https://appsandgames.org/)**
+
 ## Deployment
 
 Repository name: `UFO-Invaders-Neon-Defense`
