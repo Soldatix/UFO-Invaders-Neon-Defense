@@ -616,8 +616,48 @@
     @media (max-width:640px) { .ufo-payment-grid{grid-template-columns:1fr}.ufo-crypto-row{grid-template-columns:58px minmax(0,1fr)}.ufo-copy-btn{grid-column:2;justify-self:end}#modal-info .modal-body{padding:15px} }
 
   </style>
+  <!-- Intro-only Adsterra: ads never occupy the game viewport. -->
+  <style id="ufo-ad-placement">
+    #ufo-ad-area[hidden], #ufo-ad-area .ufo-ad-unit[hidden] { display: none !important; }
+    #ufo-ad-area { display: flex; justify-content: center; align-items: center;
+      flex: 0 0 auto; width: 100%; max-width: 100%;
+      padding: 7px 0 9px; background: #01020a; }
+    #ufo-ad-area .ufo-ad-unit { display: flex; flex-direction: column;
+      align-items: center; text-align: center; max-width: 100%; min-width: 0; }
+    .ufo-ad-label { color: #94a3b8; font: 11px/1.35 system-ui, sans-serif;
+      padding: 0 0 5px; }
+    #ufo-ad-privacy-footer { display: flex; justify-content: center;
+      flex: 0 0 auto; text-align: center; padding: 10px 12px 16px;
+      min-height: 38px; color: #a5b4fc; background: #01020a; }
+    #ufo-ad-privacy-footer .ag-privacy-footer-control { color: #7dd3fc;
+      cursor: pointer; padding: 6px 12px; }
+    /* Normal scroll is available only when the existing start/menu overlay
+       is shown. Gameplay, including pause and game over, keeps the original
+       full-viewport fixed layout and bottom touch controls. */
+    body:has(#screen-menu:not(.hidden)) { height: auto; min-height: 100dvh;
+      width: 100%; overflow-x: hidden; overflow-y: auto;
+      justify-content: flex-start; }
+    body:has(#screen-menu:not(.hidden)) #app-container {
+      height: var(--app-height, 100dvh); flex: 0 0 auto; }
+    body:not(:has(#screen-menu:not(.hidden))) #ufo-ad-area,
+    body:not(:has(#screen-menu:not(.hidden))) #ufo-ad-privacy-footer {
+      display: none !important;
+    }
+    @media (max-width: 319px) { #ufo-ad-area { display: none !important; } }
+  </style>
+  <link rel="stylesheet" href="https://appsandgames.org/privacy-choice.css">
+  <script src="https://appsandgames.org/privacy-choice.js" defer></script>
 </head>
 <body>
+  <!-- One responsive Adsterra banner outside the fullscreen game container. -->
+  <section id="ufo-ad-area" aria-label="Advertisement" hidden>
+    <div class="ufo-ad-unit" data-size="728x90" hidden>
+      <script src="./ufo-adsterra-loader.js" data-unit="desktop"></script>
+    </div>
+    <div class="ufo-ad-unit" data-size="320x50" hidden>
+      <script src="./ufo-adsterra-loader.js" data-unit="mobile"></script>
+    </div>
+  </section>
   <div id="app-container">
     <!-- CRT Effect -->
     <div id="crt-layer" class="crt-overlay hidden"></div>
@@ -814,6 +854,8 @@
       </div>
     </div>
   </div>
+
+  <footer id="ufo-ad-privacy-footer" class="footer-links" aria-label="Privacy choices"></footer>
 
   <!-- COMPLETE EMBEDDED JAVASCRIPT GAME ENGINE -->
   <script>
