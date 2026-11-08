@@ -1,0 +1,7 @@
+# Publish only public static UFO Invaders files from the repo root.
+.git/
+.github/
+README.md
+wrangler.jsonc
+.assetsignore
+*.md
