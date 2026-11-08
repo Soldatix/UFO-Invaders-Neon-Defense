@@ -1,10 +1,11 @@
-const CACHE_NAME = 'ufo-invaders-shell-2026-09-24-v2';
+const CACHE_NAME = 'ufo-invaders-2026-11-08-ad-v3';
 const CORE_ASSETS = [
   './',
   './index.html',
   './favicon.svg',
   './manifest.webmanifest',
   './ag-language-menu.js',
+  './ufo-adsterra-loader.js',
   './icons/icon-192.svg',
   './icons/icon-512.svg'
 ];
